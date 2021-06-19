@@ -8,7 +8,7 @@ import pandas as pd
 
 from xlsxwriter import exceptions
 
-PATH = '~/tinkoff_api/sbp_dictionary/'
+PATH = '~/tinkoff_api/sbp_dictionary/sbp_dic.xlsx'
 
 
 def sbp_api(url="https://api.tinkoff.ru/v1/sbp_dictionary", quiet=False):
@@ -46,6 +46,8 @@ def w_to_excel(attempts=0):
         os.remove(PATH)
         print('Existing file deleted')
     try:
+        if not os.path.exists(PATH):
+            os.mkdir('~/tinkoff_api/sbp_dictionary/')
         pd.io.formats.excel.header_style = None
         writer = pd.ExcelWriter(path=PATH, date_format='%d.%m.%d %H:%M:%S', engine='xlsxwriter')
         sbp_api().to_excel(writer, sheet_name='banks list', index=False)
@@ -67,3 +69,5 @@ def w_to_excel(attempts=0):
 
 
 w_to_excel()
+
+
