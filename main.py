@@ -69,5 +69,3 @@ def w_to_excel(attempts=0):
 
 
 w_to_excel()
-
-
